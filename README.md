@@ -18,8 +18,8 @@ Particularly useful for those who like to **farm Twitch Drops** or keep streams 
 
 1. Install [Tampermonkey](https://www.tampermonkey.net/) (or another userscript manager).
 2. Install the script from one of the mirrors:
-   - [GreasyFork](https://...)
-   - [OpenUserJS](https://...)
+   - [GreasyFork](https://greasyfork.org/en/scripts/553862-twitch-keep-tab-active)
+   - [OpenUserJS](https://openuserjs.org/scripts/Vikindor/Twitch_-_Keep_Tab_Active)
    - Or [install directly from this repository](./Twitch_-_Keep_Tab_Active.js).
 
 ## ⚙ How it works (high-level)
@@ -37,4 +37,3 @@ Particularly useful for those who like to **farm Twitch Drops** or keep streams 
 - Focuses purely on **client-side** behavior — it doesn’t bypass server-side throttling or ad systems.
 - May behave differently with extensions that modify Twitch’s player or tab activity.
 - Twitch frequently updates their SPA — if something breaks, please report it.
-- Use responsibly and respect Twitch’s content policies.
