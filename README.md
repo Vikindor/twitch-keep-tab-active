@@ -33,7 +33,7 @@ Particularly useful for those who like to **farm Twitch Drops** or keep streams 
 
 ## ⚠️ Notes & Limitations
 
-- This script is still in **version 0.3**, and while it works reliably for most cases, it may not yet cover **all edge situations** or browser variations. If you encounter a specific case where it doesn’t behave as expected — feel free to report it and share the details.
+- This script is still in version 0.3, and while **it works reliably for most cases**, it may not yet cover **all** edge situations or browser variations. If you encounter a specific case where it doesn’t behave as expected — feel free to contact me and share the details.
 - Focuses purely on **client-side** behavior — it doesn’t bypass server-side throttling or ad systems.
 - May behave differently with extensions that modify Twitch’s player or tab activity.
 - Twitch frequently updates their SPA — if something breaks, please report it.
