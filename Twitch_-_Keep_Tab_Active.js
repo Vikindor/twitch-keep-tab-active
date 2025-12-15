@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch - Keep Tab Active
 // @namespace    twitch-keep-tab-active
-// @version      0.3.0
+// @version      1.0.0
 // @description  Prevents Twitch from auto-pausing or throttling video when the tab is inactive
 // @author       Vikindor (https://vikindor.github.io/)
 // @homepageURL  https://github.com/Vikindor/twitch-keep-tab-active/
@@ -59,11 +59,11 @@
   addSilent(uw, 'blur');
 
   const HME = (uw.HTMLMediaElement || HTMLMediaElement).prototype;
-
   const originalPause = HME.pause;
   const originalPlay  = HME.play;
 
-  const shouldAllowProgrammaticPause = () => (Date.now() - lastUserGesture) <= userGestureWindowMs;
+  const shouldAllowProgrammaticPause = () =>
+    (Date.now() - lastUserGesture) <= userGestureWindowMs;
 
   Object.defineProperty(HME, 'pause', {
     configurable: true,
@@ -75,7 +75,6 @@
         const p = originalPlay.apply(this, []);
         if (p && typeof p.catch === 'function') p.catch(()=>{});
       } catch {}
-      return;
     }
   });
 
@@ -93,8 +92,7 @@
       m.addedNodes && m.addedNodes.forEach(n => {
         if (n && n.nodeType === 1) {
           if (n.tagName === 'VIDEO') resumeIfPaused(n);
-          const vids = n.querySelectorAll ? n.querySelectorAll('video') : [];
-          vids && vids.forEach(resumeIfPaused);
+          n.querySelectorAll?.('video')?.forEach(resumeIfPaused);
         }
       });
     }
@@ -102,11 +100,9 @@
 
   uw.document.addEventListener('pause', (ev) => {
     const el = ev.target;
-    if (el instanceof uw.HTMLMediaElement) {
-      if (!shouldAllowProgrammaticPause()) {
-        try { ev.stopImmediatePropagation(); } catch {}
-        resumeIfPaused(el);
-      }
+    if (el instanceof uw.HTMLMediaElement && !shouldAllowProgrammaticPause()) {
+      try { ev.stopImmediatePropagation(); } catch {}
+      resumeIfPaused(el);
     }
   }, true);
 
@@ -116,7 +112,9 @@
       const wrapped = function(entries, observer) {
         const patched = entries.map(e => {
           const t = e.target;
-          const isVideoish = t.tagName === 'VIDEO' || t.closest?.('[data-a-target="player-overlay"],[data-a-target="player-container"]');
+          const isVideoish =
+            t.tagName === 'VIDEO' ||
+            t.closest?.('[data-a-target="player-overlay"],[data-a-target="player-container"]');
           if (isVideoish) {
             return Object.assign({}, e, {
               isIntersecting: true,
@@ -138,9 +136,35 @@
 
   uw.setInterval(() => {
     try {
-      uw.dispatchEvent(new uw.MouseEvent('mousemove', {bubbles:true, clientX:0, clientY:0}));
+      uw.dispatchEvent(new uw.MouseEvent('mousemove', {bubbles:true}));
     } catch {}
   }, 30000);
 
   try { uw.navigator.wakeLock?.request?.('screen').catch(()=>{}); } catch {}
+
+  let lastOverlayHandled = 0;
+
+  const tryRecoverStream = () => {
+    const overlay = uw.document.querySelector(
+      '[data-a-target="player-overlay-content-gate"]'
+    );
+    if (!overlay) return;
+
+    const now = Date.now();
+    if (now - lastOverlayHandled < 3000) return;
+
+    const button = overlay?.querySelector('button:not([disabled])');
+
+    if (button) {
+      lastOverlayHandled = now;
+      button.click();
+    }
+  };
+
+  new uw.MutationObserver(tryRecoverStream)
+    .observe(uw.document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
 })();
