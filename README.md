@@ -12,7 +12,8 @@ Particularly useful for those who like to **farm Twitch Drops** or keep streams 
 - Keeps Twitch streams **playing in background tabs**.
 - Prevents **auto-pause** and **auto-mute** when switching tabs.
 - Fakes **visibility and focus** so Twitch thinks the tab is active.
-- Automatically **resumes playback** after stream interruptions (raids, reconnects, player errors).
+- Automatically clicks **Start Watching** when opening a new stream.
+- Automatically **resumes playback** after stream interruptions or restarts (raids, reconnects, network errors).
 - Sends light **activity signals** to avoid idle timeouts.
 
 ## 🚀 Installation
