@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch - Keep Tab Active
 // @namespace    twitch-keep-tab-active
-// @version      1.0.0
+// @version      1.1.0
 // @description  Prevents Twitch from auto-pausing or throttling video when the tab is inactive
 // @author       Vikindor (https://vikindor.github.io/)
 // @homepageURL  https://github.com/Vikindor/twitch-keep-tab-active/
@@ -141,6 +141,29 @@
   }, 30000);
 
   try { uw.navigator.wakeLock?.request?.('screen').catch(()=>{}); } catch {}
+
+  let lastStartWatchingClick = 0;
+
+  const tryClickStartWatching = () => {
+    const now = Date.now();
+    if (now - lastStartWatchingClick < 3000) return;
+
+    const btn = uw.document.querySelector(
+      '[data-a-target="content-classification-gate-overlay-start-watching-button"]'
+    );
+
+    if (btn && !btn.disabled) {
+      lastStartWatchingClick = now;
+      btn.click();
+    }
+  };
+
+  new uw.MutationObserver(tryClickStartWatching)
+    .observe(uw.document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
 
   let lastOverlayHandled = 0;
 
