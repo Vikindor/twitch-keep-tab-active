@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch - Keep Tab Active
 // @namespace    twitch-keep-tab-active
-// @version      1.1.0
+// @version      1.1.1
 // @description  Prevents Twitch from auto-pausing or throttling video when the tab is inactive
 // @author       Vikindor (https://vikindor.github.io/)
 // @homepageURL  https://github.com/Vikindor/twitch-keep-tab-active/
