@@ -16,6 +16,7 @@
 
 (function() {
   'use strict';
+
   const uw = unsafeWindow || window;
 
   let lastUserGesture = 0;
