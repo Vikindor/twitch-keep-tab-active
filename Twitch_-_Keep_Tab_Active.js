@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch - Keep Tab Active
 // @namespace    twitch-keep-tab-active
-// @version      1.1.1
+// @version      1.1.2
 // @description  Prevents Twitch from auto-pausing or throttling video when the tab is inactive
 // @author       Vikindor (https://vikindor.github.io/)
 // @homepageURL  https://github.com/Vikindor/twitch-keep-tab-active/
@@ -23,7 +23,7 @@
   const userGestureWindowMs = 1200;
 
   const markGesture = () => { lastUserGesture = Date.now(); };
-  const gestureEvents = ['pointerdown','mousedown','mouseup','keydown','touchstart','click','space','keypress'];
+  const gestureEvents = ['pointerdown','mousedown','mouseup','touchstart','keydown','click','keypress'];
   uw.addEventListener('DOMContentLoaded', () => {
     gestureEvents.forEach(ev => uw.addEventListener(ev, markGesture, {capture:true, passive:true}));
   }, {once:true});
