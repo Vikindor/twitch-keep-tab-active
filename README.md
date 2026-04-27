@@ -7,6 +7,13 @@ It fakes **visibility/focus**, guards **programmatic pauses** (only user-initiat
 
 Particularly useful for those who like to **farm Twitch Drops** or keep streams running in the background without interruptions.
 
+---
+
+💥 **New:** This userscript is also available as part of **Twitch Enhancer**, a browser extension for **Chrome** and **Firefox** that combines it with other Twitch quality-of-life improvements.  
+Learn more: [Twitch Enhancer](https://github.com/Vikindor/twitch-enhancer-extension)
+
+---
+
 ## ✨ Features
 
 - Keeps Twitch streams **playing in background tabs**.
